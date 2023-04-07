@@ -1,14 +1,15 @@
-<?php 
-if(!isset($_SESSION["id"])){
+<?php
+if (!isset($_SESSION["id"])) {
     header("Location:login.php");
     exit();
 }
-if(!isset($_SESSION['level'])){
+if (!isset($_SESSION['level'])) {
     header("Location: login.php");
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="utf-8">
@@ -52,7 +53,7 @@ if(!isset($_SESSION['level'])){
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html"> 
+                <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -65,8 +66,65 @@ if(!isset($_SESSION['level'])){
                 Data
             </div>
 
-    <?php if($_SESSION['level']=='admin'){?>
-             <!-- Nav Item - Pages Collapse Menu -->
+            <?php if ($_SESSION['level'] == 'admin') { ?>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Kategori</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Isi Kategori:</h6>
+                            <a class="collapse-item" href="tampil_k.php">Kategori</a>
+                            <a class="collapse-item" href="tambah_k.php">Tambah Kategori</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Utilities Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                        aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-book"></i>
+                        <span>Buku</span>
+                    </a>
+                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Isi Buku:</h6>
+                            <a class="collapse-item" href="tampil_b.php">Buku</a>
+                            <a class="collapse-item" href="tambah_b.php">Tambah Buku</a>
+                            <a class="collapse-item" href="laporan.php">Laporan Buku</a>
+                            <a class="collapse-item" href="laporan_buku.php">Lihat Laporan Buku</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                        aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-user"></i>
+                        <span>User</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Data User:</h6>
+                            <a class="collapse-item" href="tampil_a.php">Akun</a>
+                            <a class="collapse-item" href="register.php">Tambah Akun</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
+
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+
+            </ul>
+        <?php } elseif ($_SESSION['level'] == 'user') { ?>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -77,7 +135,6 @@ if(!isset($_SESSION['level'])){
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Isi Kategori:</h6>
                         <a class="collapse-item" href="tampil_k.php">Kategori</a>
-                        <a class="collapse-item" href="tambah_k.php">Tambah Kategori</a>
                     </div>
                 </div>
             </li>
@@ -93,91 +150,20 @@ if(!isset($_SESSION['level'])){
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Isi Buku:</h6>
-                        <a class="collapse-item" href="tampil_b.php">Buku</a>
-                        <a class="collapse-item" href="tambah_b.php">Tambah Buku</a>
-                        <a class="collapse-item" href="laporan.php">Laporan Buku</a>
-                        <a class="collapse-item" href="laporan_buku.php">Lihat Laporan Buku</a>
+                        <a class="collapse-item" href="tampil_b.php">Lihat Buku</a>
                     </div>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-user"></i>
-                    <span>User</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data User:</h6>
-                        <a class="collapse-item" href="tampil_a.php">Akun</a>
-                        <a class="collapse-item" href="register.php">Tambah Akun</a>
-                    </div>
-                </div>
-            </li>
-              <!-- Divider -->
-              <hr class="sidebar-divider d-none d-md-block">
+        </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
 
-<!-- Sidebar Toggler (Sidebar) -->
-<div class="text-center d-none d-md-inline">
-    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-</div>
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
-</ul>  
-            <?php }elseif($_SESSION['level']=='user'){?>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Kategori</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Isi Kategori:</h6>
-                        <a class="collapse-item" href="tampil_k.php">Kategori</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-book"></i>
-                    <span>Buku</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Isi Buku:</h6>
-                        <a class="collapse-item" href="tampil_b.php">Buku</a>
-                        <a class="collapse-item" href="laporan.php">Laporan Buku</a>
-                        <a class="collapse-item" href="laporan_buku.php">Lihat Laporan Buku</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-user"></i>
-                    <span>User</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data User:</h6>
-                        <a class="collapse-item" href="register.php">Tambah Akun</a>
-                    </div>
-                </div>
-            </li>
-              <!-- Divider -->
-              <hr class="sidebar-divider d-none d-md-block">
-
-<!-- Sidebar Toggler (Sidebar) -->
-<div class="text-center d-none d-md-inline">
-    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-</div>
-
-</ul>
-            <?php } ?>
+            </ul>
+        <?php } ?>
 
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -193,10 +179,11 @@ if(!isset($_SESSION['level'])){
                     </button>
 
                     <!-- Topbar Search -->
-                    <form method="get" action="" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <form method="get" action=""
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                        <input type="text" name="cari" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <input type="text" name="cari" class="form-control bg-light border-0 small"
+                                placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
 
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit" value="Cari">
@@ -234,7 +221,7 @@ if(!isset($_SESSION['level'])){
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -242,29 +229,28 @@ if(!isset($_SESSION['level'])){
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                
-                                
-                                <?php 
-if(isset($_SESSION["id"])){
-    $conn = new Connection();
-    $id = $_SESSION["id"];
-    $query = "SELECT * FROM user WHERE id = $id";
-    $result = mysqli_query($conn->conn, $query);
 
-    if(mysqli_num_rows($result) > 0) {
-        // Menampilkan nama pengguna dalam elemen HTML
-        $row = mysqli_fetch_assoc($result);
-        echo ' <span class="mr-2 d-none d-lg-inline text-gray-600 small">'.$row['nama']."/".$row['level'].'</span>';
-    } else {
-        // Jika ID tidak ditemukan, tampilkan pesan kesalahan
-        echo "User not found";
-    }
-    mysqli_close($conn->conn);
-}
-?>
+
+                                <?php
+                                if (isset($_SESSION["id"])) {
+                                    $conn = new Connection();
+                                    $id = $_SESSION["id"];
+                                    $query = "SELECT * FROM user WHERE id = $id";
+                                    $result = mysqli_query($conn->conn, $query);
+
+                                    if (mysqli_num_rows($result) > 0) {
+                                        // Menampilkan nama pengguna dalam elemen HTML
+                                        $row = mysqli_fetch_assoc($result);
+                                        echo ' <span class="mr-2 d-none d-lg-inline text-gray-600 small">' . $row['nama'] . "/" . $row['level'] . '</span>';
+                                    } else {
+                                        // Jika ID tidak ditemukan, tampilkan pesan kesalahan
+                                        echo "User not found";
+                                    }
+                                    mysqli_close($conn->conn);
+                                }
+                                ?>
                                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
-                                <img class="img-profile rounded-circle"
-                                src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="userImg/<?php echo $row['foto']; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -272,14 +258,6 @@ if(isset($_SESSION["id"])){
                                 <a class="dropdown-item" href="profil.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -292,3 +270,5 @@ if(isset($_SESSION["id"])){
                     </ul>
 
                 </nav>
+
+                

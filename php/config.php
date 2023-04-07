@@ -98,6 +98,30 @@
                     }
                     }
             }
+
+            class profil extends Connection{
+                public function prepare($data){
+                    $perintah = $this->conn->prepare($data);
+                    if(!$perintah)die("Terjadi kesalahan pada prepare statement".$this->conn->error);
+                    return $perintah;
+                    }
+                    public function query($data){
+                    $perintah = $this->conn->query($data);
+                    if(!$perintah)die("Terjadi kesalahan pada query statement".$this->conn->error);
+                    return $perintah;
+                    }
+                    public function editProfil($nama,$tlp, $alamat,$foto, $user_id){
+                        $query ="update user set nama='$nama',tlp='$tlp', alamat='$alamat', foto='$foto' WHERE id='$user_id'";
+                        mysqli_query($this->conn, $query);
+                        return 1; 
+                        }
+
+                        public function tambahProfil($id, $judul,$penerbit, $pengarang, $tahun, $kategori,$harga, $foto){
+                            $query = "INSERT INTO user (id, judul, penerbit, pengarang, tahun,kategori_id,harga, foto) VALUES ('$id', '$judul', '$penerbit', '$pengarang', '$tahun', '$kategori', '$harga', '$foto')";
+                            mysqli_query($this->conn, $query);
+                            return 1; 
+                        }
+            }
             // class untuk Kategori
             class CrudKategori extends Connection{
                 public function prepare($data){

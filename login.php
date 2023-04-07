@@ -14,10 +14,7 @@ if(isset($_POST['submit'])){
             session_start();
             $_SESSION['id'] = $login->idUser();
             $_SESSION['level'] = $level;
-            if($level == "user"){
-                header("location: index.php");
-                exit();
-            } else if($level == "admin"){
+            if($level == "user" or $level == "admin"){
                 header("location: index.php");
                 exit();
             }
