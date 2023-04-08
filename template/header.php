@@ -18,7 +18,7 @@ if (!isset($_SESSION['level'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Aplikasi Perpustakaan</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -43,9 +43,9 @@ if (!isset($_SESSION['level'])) {
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <i class="fas fa-book"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Perpustakaan</div>
             </a>
 
             <!-- Divider -->
@@ -53,7 +53,7 @@ if (!isset($_SESSION['level'])) {
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -78,7 +78,6 @@ if (!isset($_SESSION['level'])) {
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Isi Kategori:</h6>
                             <a class="collapse-item" href="tampil_k.php">Kategori</a>
-                            <a class="collapse-item" href="tambah_k.php">Tambah Kategori</a>
                         </div>
                     </div>
                 </li>
@@ -95,9 +94,6 @@ if (!isset($_SESSION['level'])) {
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Isi Buku:</h6>
                             <a class="collapse-item" href="tampil_b.php">Buku</a>
-                            <a class="collapse-item" href="tambah_b.php">Tambah Buku</a>
-                            <a class="collapse-item" href="laporan.php">Laporan Buku</a>
-                            <a class="collapse-item" href="laporan_buku.php">Lihat Laporan Buku</a>
                         </div>
                     </div>
                 </li>
@@ -110,7 +106,7 @@ if (!isset($_SESSION['level'])) {
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Data User:</h6>
-                            <a class="collapse-item" href="tampil_a.php">Akun</a>
+                            <a class="collapse-item" href="akun.php">Akun</a>
                             <a class="collapse-item" href="register.php">Tambah Akun</a>
                         </div>
                     </div>
@@ -153,7 +149,7 @@ if (!isset($_SESSION['level'])) {
                         <a class="collapse-item" href="tampil_b.php">Lihat Buku</a>
                     </div>
                 </div>
-        </li>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -177,21 +173,6 @@ if (!isset($_SESSION['level'])) {
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form method="get" action=""
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" name="cari" class="form-control bg-light border-0 small"
-                                placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" value="Cari">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -220,10 +201,6 @@ if (!isset($_SESSION['level'])) {
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -270,5 +247,3 @@ if (!isset($_SESSION['level'])) {
                     </ul>
 
                 </nav>
-
-                

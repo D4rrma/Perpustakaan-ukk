@@ -1,7 +1,7 @@
 <?php
 require 'php/config.php';
 include('template/header.php');
-$obj = new CrudKategori;
+$obj = new profil();
 ?>
 
 
@@ -17,11 +17,11 @@ $obj = new CrudKategori;
             <div class="p-5">
                 <div class="col-md-12 d-flex justify-content-end">
                     <a href="tambah_k.php" class="btn btn-primary mr-2">
-                        <i class="fas fa-plus-circle"></i> Tambah Kategori
+                        <i class="fas fa-plus-circle"></i> Tambah Akun
                     </a>
                 </div>
                 <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-5">Create an Account!</h1>
+                    <h1 class="h4 text-gray-900 mb-5">Data Akun </h1>
                 </div>
                 <div class="table-responsive">
                     <table class="table text-center" width="100%">
@@ -29,13 +29,15 @@ $obj = new CrudKategori;
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Kategori</th>
+                                <th>Nama </th>
+                                <th>Username</th>
+                                <th>Password</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <?php
                         $no = 1;
-                        $data = $obj->tampilKategori();
+                        $data = $obj->tampilAkun();
                         while ($row = $data->fetch_array()) {
                             ?>
                             <tr>
@@ -46,7 +48,13 @@ $obj = new CrudKategori;
                                     <?php echo $row['id']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['nama_kategori']; ?>
+                                    <?php echo $row['nama']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['username']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['password']; ?>
                                 </td>
                                 <td>
                                 <a href="delete-buku.php?id=<?php echo $row['id']; ?>"

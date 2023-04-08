@@ -129,7 +129,7 @@ $total_halaman = ceil($total_data / $per_halaman);
                                             class="btn btn-warning btn-circle mr-2">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="hapus-buku.php?id=<?php echo $data['id']; ?>"
+                                        <a href="delete-buku.php?id=<?php echo $data['id']; ?>"
                                             class="btn btn-danger btn-circle"
                                             onclick="return confirm('Anda yakin ingin menghapus buku ini?')">
                                             <i class="fas fa-trash"></i>

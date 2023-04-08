@@ -30,7 +30,7 @@ if (isset($_POST["submit"])) {
     $foto_size = $_FILES["foto"]["size"];
 
     // Validasi tipe file dan ukuran file
-    $allowed_types = array('image/jpeg', 'image/png', 'image/gif');
+    $allowed_types = array('image/jpeg', 'image/png', 'image/gif','image/svg');
     $max_size = 5 * 1024 * 1024; // 5MB
     if (!in_array($foto_type, $allowed_types) || $foto_size > $max_size) {
       echo "<script>alert('Tipe atau ukuran file tidak sesuai');</script>";

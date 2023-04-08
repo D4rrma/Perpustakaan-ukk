@@ -1,5 +1,5 @@
 <?php
-require_once('../php/config.php');
+require_once('php/config.php');
 $obj = new Buku;
 if(!$obj->detailDataBuku($_GET['id']))die("Eror: id not found");
 $result = $obj->deleteBuku($_GET['id']);
