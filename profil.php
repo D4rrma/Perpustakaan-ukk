@@ -37,7 +37,7 @@ if (isset($_POST["submit"])) {
       exit;
     }
 
-    $target_dir = "userImg/";
+    $target_dir = "img/user-img";
     $target_file = $target_dir . basename($_FILES["foto"]["name"]);
     $i = 0;
     while (file_exists($target_file)) {
@@ -223,46 +223,19 @@ if (isset($_POST["submit"])) {
   <a href="index.php" style="top:0; left:0;" class="btn btn-secondary position-absolute  m-3"><i
       class="fas fa-arrow-left"></i></a>
 
-  <!-- <div style="width:500px;" class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-    <div class="card w-100 p-4">
-      <div class="d-flex flex-row justify-content-center align-items-center mt-3">
-        <h3 class="text-title">Profil User</h3>
-        
-      </div>
-
-      <div class=" image d-flex flex-column justify-content-center align-items-center">
-          <img src="userImg/<?php echo $data['foto']; ?>" class="img-profile rounded-circle" style="border:10px solid #4E73DF; border-radius:50%;" height="300" width="300" />
-          <hr class="hr" />
-          <span class="name h4 mt-3">
-          <?php echo $data['nama']; ?>/
-          <?php echo $data['level']; ?>
-        </span>
-        <div class="d-flex flex-row justify-content-center align-items-center ">
-          <span class="idd1">
-          <label class="text-">Nomor Telepon :</label>
-            <?php echo $data['tlp']; ?>
-          </span>
-        </div>
-        <div class="d-flex flex-row justify-content-center align-items-center">
-          <span class="number">
-            <?php
-            if (isset($data['alamat'])) {
-              echo '<span class="number">' . $data['alamat'] . '</span>';
-            } else {
-              echo '<span class="number">Alamat tidak tersedia</span>';
-            } ?>
-          </span>
-        </div>
-      </div>
-      
-    </div>
-  </div> -->
-
   <div class="container w-50 p-0 bg-light rounded">
-
       <div class="col p-0 ">
       <div class="col bg-gradient-warning p-4 d-flex flex-column align-items-center rounded-top">
-      <img src="userImg/<?php echo $data['foto']; ?>" width="200px" height="200px" class="img-thumnail rounded-circle" alt="User-Profile-Image">
+      <?php 
+        // periksa apakah foto pengguna kosong
+        if(empty($data['foto'])) {
+          // gunakan foto avatar default jika kosong
+          echo '<img src="img/user-img/avatar-default.svg" width="200px" height="200px" class="img-thumnail border-dark rounded-circle" alt="User-Profile-Image">';
+        } else {
+          // gunakan foto pengguna jika tidak kosong
+          echo '<img src="img/user-img/'.$data['foto'].'" width="200px" height="200px" class="img-thumnail border-white border-3 rounded-circle" alt="User-Profile-Image">';
+        }
+      ?>
       <hr>  
       <h6 class="f-w-600">
           <?php echo $data['nama']; ?>

@@ -5,7 +5,24 @@ include('template/header.php');
 $buku = new Buku();
 
 // Set jumlah data per halaman
-$per_halaman = 10;
+if (isset($_GET['per_halaman'])) {
+    $per_halaman = $_GET['per_halaman'];
+} else {
+    $per_halaman = 5; // Jika tidak didefinisikan, gunakan nilai default
+}
+
+// Set per_halaman sesuai dengan nilai yang dipilih
+if ($per_halaman == 5) {
+    $per_halaman = 5;
+} else if ($per_halaman == 10) {
+    $per_halaman = 10;
+} else if ($per_halaman == 25) {
+    $per_halaman = 25;
+} else if ($per_halaman == 50) {
+    $per_halaman = 50;
+} else {
+    $per_halaman = 5; // Jika nilai tidak valid, gunakan nilai default
+}
 
 // Ambil halaman saat ini
 if (isset($_GET['halaman'])) {
@@ -27,6 +44,7 @@ if (isset($_GET['cari'])) {
 $total_halaman = ceil($total_data / $per_halaman);
 
 ?>
+
 
 <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
     <div class="card shadow mb-5 w-100 pb-5">
@@ -59,13 +77,36 @@ $total_halaman = ceil($total_data / $per_halaman);
         </div>
         <div class="w-100">
             <div class="p-5">
+
+
                 <div class="col-md-12 d-flex justify-content-end">
-                    <a href="tambah_b.php" class="btn btn-primary mr-2">
-                        <i class="fas fa-plus-circle"></i> Tambah Buku
-                    </a>
-                    <a href="detail-buku.php" class="btn btn-secondary">
-                        <i class="fas fa-info-circle"></i> Laporan Buku
-                    </a>
+                    <div class="col">
+                        <form action="" method="get">
+                            <label>Show
+                                <select name="per_halaman" onchange="this.form.submit()">
+                                    <option value="5" <?php if ($per_halaman == 5)
+                                        echo 'selected'; ?>>5</option>
+                                    <option value="10" <?php if ($per_halaman == 10)
+                                        echo 'selected'; ?>>10</option>
+                                    <option value="25" <?php if ($per_halaman == 25)
+                                        echo 'selected'; ?>>25</option>
+                                    <option value="50" <?php if ($per_halaman == 50)
+                                        echo 'selected'; ?>>50</option>
+                                </select> entries
+                            </label>
+                        </form>
+                    </div>
+                    <div class="d-flex col justify-content-end"><a href="crud/tambah_b.php"
+                            class="btn btn-primary mr-2">
+                            <i class="fas fa-plus-circle"></i> Tambah Buku
+                        </a>
+                        <a href="laporan_buku.php?cari=<?php echo isset($_GET['cari']) ? $_GET['cari'] : ''; ?>"
+                            class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i> Laporan Buku
+                        </a>
+
+                    </div>
+
                 </div>
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-5">Data Buku</h1>
@@ -118,30 +159,30 @@ $total_halaman = ceil($total_data / $per_halaman);
                                     <td>
                                         <?php echo $data['foto']; ?>
                                     </td>
-                                    <?php if($_SESSION['level']=='admin'){?>
-                                    <td class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-info btn-circle mr-2" data-toggle="modal"
-                                            data-target="#detailModal<?php echo $data['id']; ?>">
-                                            <i class="fas fa-info-circle"></i>
-                                        </a>
-                                        
-                                        <a href="edit-buku.php?id=<?php echo $data['id']; ?>"
-                                            class="btn btn-warning btn-circle mr-2">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="delete-buku.php?id=<?php echo $data['id']; ?>"
-                                            class="btn btn-danger btn-circle"
-                                            onclick="return confirm('Anda yakin ingin menghapus buku ini?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </td>
-                                    <?php }elseif($_SESSION['level']=='user'){?>
-                                    <td class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-info btn-circle mr-2" data-toggle="modal"
-                                            data-target="#detailModal<?php echo $data['id']; ?>">
-                                            <i class="fas fa-info-circle"></i>
-                                        </a>
-                                    </td>
+                                    <?php if ($_SESSION['level'] == 'admin') { ?>
+                                        <td class="d-flex justify-content-center">
+                                            <a href="#" class="btn btn-info btn-circle mr-2" data-toggle="modal"
+                                                data-target="#detailModal<?php echo $data['id']; ?>">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
+
+                                            <a href="crud/edit-buku.php?id=<?php echo $data['id']; ?>"
+                                                class="btn btn-warning btn-circle mr-2">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="crud/delete-buku.php?id=<?php echo $data['id']; ?>"
+                                                class="btn btn-danger btn-circle"
+                                                onclick="return confirm('Anda yakin ingin menghapus buku ini?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    <?php } elseif ($_SESSION['level'] == 'user') { ?>
+                                        <td class="d-flex justify-content-center">
+                                            <a href="#" class="btn btn-info btn-circle mr-2" data-toggle="modal"
+                                                data-target="#detailModal<?php echo $data['id']; ?>">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
+                                        </td>
                                     <?php } ?>
                                 </tr>
                                 <!-- isi data tabel disini -->
@@ -160,7 +201,7 @@ $total_halaman = ceil($total_data / $per_halaman);
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <img src="img/<?php echo $data['foto']; ?>"
+                                                        <img src="img/img-buku/<?php echo $data['foto']; ?>"
                                                             alt="<?php echo $data['judul']; ?>" class="img-fluid">
                                                     </div>
                                                     <div class="col-md-8">
@@ -199,48 +240,48 @@ $total_halaman = ceil($total_data / $per_halaman);
                 </div>
                 <!-- Tombol halaman -->
                 <div class="row">
-                    <div class="col-md-12">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                                <?php
-                                if ($halaman > 1) {
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+                            Showing
+                            <?php echo (($halaman - 1) * $per_halaman) + 1 ?> to
+                            <?php echo min($halaman * $per_halaman, $total_data) ?> of
+                            <?php echo $total_data ?> entries
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <?php
+                                    $prev_link = ($halaman > 1) ? '?halaman=' . ($halaman - 1) . '&per_halaman=' . $per_halaman : '#';
+                                    $next_link = ($halaman < $total_halaman) ? '?halaman=' . ($halaman + 1) . '&per_halaman=' . $per_halaman : '#';
                                     ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?halaman=<?php echo $halaman - 1; ?>"
-                                            aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
+                                    <li class="page-item <?php if ($halaman == 1) {
+                                        echo 'disabled';
+                                    } ?>">
+                                        <a class="page-link" href="<?php echo $prev_link; ?>" tabindex="-1">Prev</a>
                                     </li>
                                     <?php
-                                }
-                                ?>
-
-                                <?php
-                                for ($i = 1; $i <= $total_halaman; $i++) {
+                                    for ($i = 1; $i <= $total_halaman; $i++) {
+                                        $link = "?halaman=$i&per_halaman=$per_halaman";
+                                        ?>
+                                        <li class="page-item <?php if ($halaman == $i) {
+                                            echo 'active';
+                                        } ?>">
+                                            <a class="page-link" href="<?php echo $link; ?>"><?php echo $i; ?></a>
+                                        </li>
+                                        <?php
+                                    }
                                     ?>
-                                    <li class="page-item <?php if ($halaman == $i) {
-                                        echo 'active';
-                                    } ?>"><a class="page-link"
-                                            href="?halaman=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-                                    <?php
-                                }
-                                ?>
-
-                                <?php
-                                if ($halaman < $total_halaman) {
-                                    ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?halaman=<?php echo $halaman + 1; ?>" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
+                                    <li class="page-item <?php if ($halaman == $total_halaman) {
+                                        echo 'disabled';
+                                    } ?>">
+                                        <a class="page-link" href="<?php echo $next_link; ?>">Next</a>
                                     </li>
-                                    <?php
-                                }
-                                ?>
-                            </ul>
-                        </nav>
+                                </ul>
+                            </nav>
+
+                        </div>
                     </div>
                 </div>
 

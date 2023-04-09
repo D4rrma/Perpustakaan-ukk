@@ -1,18 +1,16 @@
 <?php
-require 'php/config.php';
-$register=new Register();
-if(isset($_POST["submit"])){
-	$result = $register->registration($_POST["id"],$_POST["nama"], $_POST["username"], $_POST["password"], $_POST["cpass"]);
-	if($result==1){
-		header("Refresh: 1; url=login.php");
-		echo "<script>alert('Register Sukses , Silahkan Login Ulang');</script>";
-	}
-	elseif($result==10){
-		echo "<script>alert('Username or Email Has Alrady Taken');</script>";
-	}
-	elseif($result==100){
-	echo "<script>alert('Password does not match');</script>";
-	}
+require '../php/config.php';
+$register = new Register();
+if (isset($_POST["submit"])) {
+    $result = $register->registration($_POST["id"], $_POST["nama"], $_POST["username"], $_POST["password"], $_POST["cpass"], $_POST["level"]);
+    if ($result == 1) {
+        header("Refresh: 1; url=../login.php");
+        echo "<script>alert('Register Sukses , Silahkan Login Ulang');</script>";
+    } elseif ($result == 10) {
+        echo "<script>alert('Username or Email Has Alrady Taken');</script>";
+    } elseif ($result == 100) {
+        echo "<script>alert('Password does not match');</script>";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -25,21 +23,21 @@ if(isset($_POST["submit"])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>Register User</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 <style>
     .image{
-        background: url(img/3.jpg);
+        background: url(../img/3.jpg);
     background-position: center;
     background-size: cover;
     }
@@ -81,16 +79,19 @@ if(isset($_POST["submit"])){
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="level" class="form-control form-control-user" id="exampleInputEmail" value="user" placeholder="level">
+                                </div>
                                 <button name="submit" href="login.html" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a class="small" href="forgot-password.php">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.php">Already have an account? Login!</a>
+                                <a class="small" href="../login.php">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
@@ -101,14 +102,14 @@ if(isset($_POST["submit"])){
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="../js/sb-admin-2.min.js"></script>
 
 </body>
 

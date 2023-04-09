@@ -101,10 +101,10 @@ echo "<script>alert('User not register');</script>";
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="akun/forgot-password.php">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.php">Create an Account!</a>
+                                        <a class="small" href="akun/register.php">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

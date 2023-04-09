@@ -21,14 +21,14 @@ if (!isset($_SESSION['level'])) {
     <title>Aplikasi Perpustakaan</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
@@ -38,7 +38,7 @@ if (!isset($_SESSION['level'])) {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -101,13 +101,12 @@ if (!isset($_SESSION['level'])) {
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                         aria-expanded="true" aria-controls="collapsePages">
                         <i class="fas fa-user"></i>
-                        <span>User</span>
+                        <span>Akun</span>
                     </a>
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Data User:</h6>
                             <a class="collapse-item" href="akun.php">Akun</a>
-                            <a class="collapse-item" href="register.php">Tambah Akun</a>
                         </div>
                     </div>
                 </li>
@@ -226,8 +225,17 @@ if (!isset($_SESSION['level'])) {
                                     mysqli_close($conn->conn);
                                 }
                                 ?>
-                                <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
-                                <img class="img-profile rounded-circle" src="userImg/<?php echo $row['foto']; ?>">
+                                <?php 
+        // periksa apakah foto pengguna kosong
+        if(empty($row['foto'])) {
+          // gunakan foto avatar default jika kosong
+          echo '<img src="userimg/avatar-default.svg" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+        } else {
+          // gunakan foto pengguna jika tidak kosong
+          echo '<img src="userimg/'.$row['foto'].'" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+        }
+      ?>
+                               
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

@@ -1,43 +1,115 @@
 <?php
-require '../php/config.php';
-require_once('php/tcpdf/tcpdf.php');
-$obj=new Buku();
+require 'php/config.php';
+if (file_exists('php/tcpdf/tcpdf.php')) {
+    require_once 'php/tcpdf/tcpdf.php';
+} else {
+    echo 'File TCPDF tidak ditemukan.';
+}
 
-// buat objek TCPDF baru
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$buku = new Buku();
+$cari = isset($_GET['cari']) ? $_GET['cari'] : '';
 
-// atur judul laporan
-$pdf->SetTitle('Laporan Buku');
+// Menghitung total data yang ditemukan
+$total_data = $buku->countBuku($cari);
 
-// atur margin halaman
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+// Menentukan jumlah data per halaman
+$per_halaman = 5;
 
-// tambahkan halaman baru
+// Menghitung jumlah halaman
+$total_halaman = ceil($total_data / $per_halaman);
+
+// Menentukan halaman yang ditampilkan
+$halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+$halaman = max($halaman, 1); // Halaman minimum adalah 1
+$halaman = min($halaman, $total_halaman); // Halaman maksimum adalah total halaman
+
+// Mengambil data buku berdasarkan kata kunci pencarian
+$result = $buku->searchBuku($cari, $halaman, $per_halaman);
+
+// Membuat objek TCPDF dan menentukan konfigurasi awal
+$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+$pdf->SetMargins(10, 15, 15);
 $pdf->AddPage();
 
-// tampilkan data buku dalam format tabel
-$html = '<table border="1">';
-$html .= '<tr><th>No</th><th>Id</th><th>Judul</th><th>Penerbit</th><th>Pengarang</th><th>Tahun</th><th>Id Kategori</th><th>Harga</th></tr>';
-$no = 1;
-$data = $obj->tampilBuku();
-while ($row = $data->fetch_array()) {
-    $html .= '<tr>';
-    $html .= '<td>' . $no++ . '</td>';
-    $html .= '<td>' . $row['id'] . '</td>';
-    $html .= '<td>' . $row['judul'] . '</td>';
-    $html .= '<td>' . $row['penerbit'] . '</td>';
-    $html .= '<td>' . $row['pengarang'] . '</td>';
-    $html .= '<td>' . $row['tahun'] . '</td>';
-    $html .= '<td>' . $row['kategori_id'] . '</td>';
-    $html .= '<td>' . $row['harga'] . '</td>';
-    $html .= '</tr>';
+// Menambahkan judul laporan
+$pdf->SetFont('helvetica', 'B', 14);
+$pdf->Cell(0, 10, 'Laporan Data Buku', 0, true, 'C');
+
+// Menambahkan keterangan jumlah data yang ditemukan
+$pdf->SetFont('helvetica', '', 10);
+$pdf->Cell(0, 5, 'Jumlah data: ' . $total_data, 0, 1, 'R');
+
+// Menambahkan keterangan kata kunci pencarian
+if (!empty($cari)) {
+    $pdf->SetFont('helvetica', '', 10);
+    $pdf->Cell(0, 5, 'Kata kunci pencarian: ' . $cari, 0, 1, 'R');
 }
-$html .= '</table>';
 
-// tampilkan data tabel di dalam file PDF
-$pdf->writeHTML($html, true, false, true, false, '');
+$pdf->Ln(10);
 
-// simpan file PDF di server
-$pdf->Output('laporan_buku.pdf', 'D');
+// Menambahkan header tabel
+$pdf->SetFont('helvetica', 'B', 10);
+$pdf->Cell(10, 7, 'No.', 1, 0, 'C');
+$pdf->Cell(45, 7, 'Judul Buku', 1, 0, 'C');
+$pdf->Cell(30, 7, 'Penerbit', 1, 0, 'C');
+$pdf->Cell(30, 7, 'Pengarang', 1, 0, 'C');
+$pdf->Cell(20, 7, 'Tahun', 1, 0, 'C');
+$pdf->Cell(30, 7, 'Kategori', 1, 0, 'C');
+$pdf->Cell(30, 7, 'Harga', 1, 1, 'C');
+
+// Menambahkan data buku ke dalam tabel
+$no = ($halaman - 1) * $per_halaman;
+
+$pdf->SetFont('helvetica', '', 10);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $no++;
+    $pdf->Cell(10
+, 7, $no, 1, 0, 'C');
+$pdf->Cell(45, 7, $row['judul'], 1, 0);
+$pdf->Cell(30, 7, $row['penerbit'], 1, 0);
+$pdf->Cell(30, 7, $row['pengarang'], 1, 0);
+$pdf->Cell(20, 7, $row['tahun'], 1, 0, 'C');
+$pdf->Cell(30, 7, $row['nama_kategori'], 1, 0);
+$pdf->Cell(30, 7, 'Rp. ' . number_format($row['harga'], 0, ',', '.'), 1, 1, 'R');
+}
+
+// Menambahkan pagination
+$pdf->Ln(10);
+$pdf->SetFont('helvetica', '', 10);
+$pdf->Cell(0, 5, 'Halaman ' . $halaman . ' dari ' . $total_halaman, 0, 1, 'C');
+$pdf->Cell(0, 5, '', 0, 1, 'C');
+$pdf->Cell(0, 5, '', 0, 1, 'C');
+$pdf->Cell(0, 5, '', 0, 1, 'C');
+$pdf->Cell(0, 5, '', 0, 1, 'C');
+
+if ($total_halaman > 1) {
+$pdf->Ln(10);
+$pdf->SetFont('helvetica', '', 10);
+
+// Menambahkan link pagination untuk halaman sebelumnya
+if ($halaman > 1) {
+    $pdf->Cell(30, 7, '<<', 1, 0, 'C', false, '?cari=' . $cari . '&halaman=' . ($halaman - 1));
+} else {
+    $pdf->Cell(30, 7, '<<', 1, 0, 'C', false, '');
+}
+
+// Menambahkan nomor halaman dan link pagination
+for ($i = 1; $i <= $total_halaman; $i++) {
+    $pdf->Cell(10, 7, $i, 1, 0, 'C', false, '?cari=' . $cari . '&halaman=' . $i);
+}
+
+// Menambahkan link pagination untuk halaman berikutnya
+if ($halaman < $total_halaman) {
+    $pdf->Cell(30, 7, '>>', 1, 0, 'C', false, '?cari=' . $cari . '&halaman=' . ($halaman + 1));
+} else {
+    $pdf->Cell(30, 7, '>>', 1, 0, 'C', false, '');
+}
+}
+
+// Menampilkan hasil dalam format PDF dan mengakhiri sesi
+$pdf->Output('laporan-data-buku.pdf', 'I');
+exit();
+
 
 ?>

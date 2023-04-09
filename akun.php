@@ -1,7 +1,21 @@
 <?php
 require 'php/config.php';
-include('template/header.php');
+
 $obj = new profil();
+
+$register = new Register();
+if (isset($_POST["submit"])) {
+    $result = $register->registration($_POST["id"], $_POST["nama"], $_POST["username"], $_POST["password"], $_POST["cpass"], $_POST["level"]);
+    if ($result == 1) {
+        header("Refresh: 1; url=Akun.php");
+        echo "<script>alert('Register Sukses , Silahkan Login Ulang');</script>";
+    } elseif ($result == 10) {
+        echo "<script>alert('Username or Email Has Alrady Taken');</script>";
+    } elseif ($result == 100) {
+        echo "<script>alert('Password does not match');</script>";
+    }
+}
+include('template/header.php');
 ?>
 
 
@@ -16,9 +30,12 @@ $obj = new profil();
         <div class="w-100">
             <div class="p-5">
                 <div class="col-md-12 d-flex justify-content-end">
-                    <a href="tambah_k.php" class="btn btn-primary mr-2">
+                    <!-- <a href="tambah_akun.php" class="btn btn-primary mr-2">
                         <i class="fas fa-plus-circle"></i> Tambah Akun
-                    </a>
+                    </a> -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <i class="fas fa-plus-circle pr-1"></i>Tambah Akun Admin
+                    </button>
                 </div>
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-5">Data Akun </h1>
@@ -32,6 +49,7 @@ $obj = new profil();
                                 <th>Nama </th>
                                 <th>Username</th>
                                 <th>Password</th>
+                                <th>Level</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -57,11 +75,14 @@ $obj = new profil();
                                     <?php echo $row['password']; ?>
                                 </td>
                                 <td>
-                                <a href="delete-buku.php?id=<?php echo $row['id']; ?>"
-                                            class="btn btn-danger btn-circle"
-                                            onclick="return confirm('Anda yakin ingin menghapus buku ini?')">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                    <?php echo $row['level']; ?>
+                                </td>
+                                <td>
+                                    <a href="crud/delete-akun.php?id=<?php echo $row['id']; ?>"
+                                        class="btn btn-danger btn-circle"
+                                        onclick="return confirm('Anda yakin ingin menghapus buku ini?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                             <?php
@@ -75,66 +96,55 @@ $obj = new profil();
 
     </div>
 </div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Akun Admin</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form method="post" class="user">
+                    <div class="form-group">
+                        <input type="hidden" name="id" class="form-control form-control-user" placeholder="Id">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="nama" class="form-control form-control-user" placeholder="Nama">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control form-control-user"
+                            placeholder="Username">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="password" name="password" class="form-control form-control-user"
+                                placeholder="Password">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="password" name="cpass" class="form-control form-control-user"
+                                placeholder="Repeat Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="level" class="form-control form-control-user" value="admin"
+                            placeholder="level">
+                    </div>
+                    <button name="submit" href="login.html" class="btn btn-primary btn-user btn-block">
+                        Register Account
+                    </button>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- End of Main Content -->
 
 <!-- Footer -->
-<footer class="sticky-footer bot bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2021</span>
-        </div>
-    </div>
-</footer>
-<!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="logout.php">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script src="js/demo/chart-area-demo.js"></script>
-<script src="js/demo/chart-pie-demo.js"></script>
-
-</body>
-
-</html>
+<?php include 'template/footer.php' ?>

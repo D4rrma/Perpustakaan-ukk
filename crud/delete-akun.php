@@ -6,6 +6,6 @@ if (!$obj->tampilAkun($_GET['id']))
 $result = $obj->deleteAkun($_GET['id']);
 if ($result == 1) {
     echo "<script>alert('Data berhasil dihapus');</script>";
-    header("location:akun.php");
+    header("location:../akun.php");
 }
 ?>

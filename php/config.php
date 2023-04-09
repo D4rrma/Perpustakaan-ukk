@@ -23,15 +23,15 @@ class Connection
 // class untuk register
 class Register extends Connection
 {
-    public function registration($nik, $nama, $username, $password, $cpass)
+    public function registration($id, $nama, $username, $password, $cpass, $level)
     {
-        $duplicate = mysqli_query($this->conn, "SELECT * FROM user WHERE id ='$nik'");
+        $duplicate = mysqli_query($this->conn, "SELECT * FROM user WHERE id = '$id' OR username ='$username'");
         if (mysqli_num_rows($duplicate) > 0) {
             return 10;
-            //nik has already taken
+            //id or username has already taken
         } else {
             if ($password == $cpass) {
-                $query = "INSERT INTO user (id, nama, username, password) VALUES ('$nik', '$nama', '$username', md5('$password'))";
+                $query = "INSERT INTO user (id, nama, username, password,level) VALUES ('$id', '$nama', '$username', md5('$password'),'$level')";
                 mysqli_query($this->conn, $query);
                 return 1;
                 //register successful
@@ -131,6 +131,7 @@ class profil extends Connection
         $perintah = $this->query($sql);
         return $perintah;
     }
+
 
     public function tambahProfil($id, $judul, $penerbit, $pengarang, $tahun, $kategori, $harga, $foto)
     {
@@ -269,13 +270,13 @@ class Buku extends Connection
 
     public function detailDataBuku($data)
     {
-        $sql = "SELECT id,judul,penerbit,pengarang,tahun,kategori_id,harga FROM buku WHERE id=?";
+        $sql = "SELECT id,judul,penerbit,pengarang,tahun,kategori_id,harga,foto FROM buku WHERE id=?";
         if ($stmt = $this->conn->prepare($sql)):
             $stmt->bind_param("i", $param_data);
             $param_data = $data;
             if ($stmt->execute()):
                 $stmt->store_result();
-                $stmt->bind_result($this->id, $this->judul, $this->penerbit, $this->pengarang, $this->tahun, $this->kategori_id, $this->harga);
+                $stmt->bind_result($this->id, $this->judul, $this->penerbit, $this->pengarang, $this->tahun, $this->kategori_id, $this->harga, $this->foto);
                 $stmt->fetch();
                 if ($stmt->num_rows == 1):
                     return true;
@@ -286,9 +287,9 @@ class Buku extends Connection
         endif;
         $stmt->close();
     }
-    public function updateBuku($judul, $penerbit, $pengarang, $tahun, $kategori_id, $harga, $data)
+    public function updateBuku($judul, $penerbit, $pengarang, $tahun, $kategori_id, $harga, $foto, $id)
     {
-        $query = "update buku set judul='$judul', penerbit='$penerbit', pengarang='$pengarang',tahun='$tahun', kategori_id='$kategori_id',  harga='$harga' WHERE id='$data'";
+        $query = "update buku set judul='$judul', penerbit='$penerbit', pengarang='$pengarang',tahun='$tahun', kategori_id='$kategori_id',  harga='$harga', foto='$foto' WHERE id='$id'";
         mysqli_query($this->conn, $query);
         return 1;
     }
