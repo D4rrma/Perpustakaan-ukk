@@ -229,10 +229,10 @@ if (!isset($_SESSION['level'])) {
         // periksa apakah foto pengguna kosong
         if(empty($row['foto'])) {
           // gunakan foto avatar default jika kosong
-          echo '<img src="userimg/avatar-default.svg" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+          echo '<img src="img/user-img/avatar-default.svg" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
         } else {
           // gunakan foto pengguna jika tidak kosong
-          echo '<img src="userimg/'.$row['foto'].'" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+          echo '<img src="img/user-img/'.$row['foto'].'" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
         }
       ?>
                                
