@@ -23,7 +23,7 @@ if (isset($_POST["submit"])) {
     }
 
     // Proses upload foto
-    $target_dir = "../img-buku/";
+    $target_dir = "../img/img-buku/upload/";
     $target_file = $target_dir . basename($_FILES["foto"]["name"]);
     $i = 0;
     while (file_exists($target_file)) {
@@ -45,8 +45,7 @@ if (isset($_POST["submit"])) {
 ;
 
 
-
-include('../template/header.php');
+include('../template/header-crud.php');
 ?>
 
 <div class="container-fluid d-flex justify-content-center align-items-center">
@@ -115,4 +114,4 @@ include('../template/header.php');
     </div>
 </div>
 
-<?php include('../template/footer.php'); ?>
+<?php include('../template/footer-crud.php'); ?>

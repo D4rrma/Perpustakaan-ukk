@@ -16,7 +16,7 @@ $obj = new CrudKategori;
         <div class="w-100">
             <div class="p-5">
                 <div class="col-md-12 d-flex justify-content-end">
-                    <a href="tambah_k.php" class="btn btn-primary mr-2">
+                    <a href="crud/tambah_k.php" class="btn btn-primary mr-2">
                         <i class="fas fa-plus-circle"></i> Tambah Kategori
                     </a>
                 </div>

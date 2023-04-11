@@ -71,13 +71,13 @@ if (!isset($_SESSION['level'])) {
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-folder"></i>
+                        <i class="fas fa-fw fa-cog"></i>
                         <span>Kategori</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Isi Kategori:</h6>
-                            <a class="collapse-item" href="tampil_k.php">Kategori</a>
+                            <a class="collapse-item" href="../tampil_k.php">Kategori</a>
                         </div>
                     </div>
                 </li>
@@ -93,7 +93,7 @@ if (!isset($_SESSION['level'])) {
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Isi Buku:</h6>
-                            <a class="collapse-item" href="tampil_b.php">Buku</a>
+                            <a class="collapse-item" href="../tampil_b.php">Buku</a>
                         </div>
                     </div>
                 </li>
@@ -106,7 +106,7 @@ if (!isset($_SESSION['level'])) {
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Data User:</h6>
-                            <a class="collapse-item" href="akun.php">Akun</a>
+                            <a class="collapse-item" href="../akun.php">Akun</a>
                         </div>
                     </div>
                 </li>
@@ -123,13 +123,13 @@ if (!isset($_SESSION['level'])) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-folder"></i>
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>Kategori</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Isi Kategori:</h6>
-                        <a class="collapse-item" href="tampil_k.php">Kategori</a>
+                        <a class="collapse-item" href="../tampil_k.php">Kategori</a>
                     </div>
                 </div>
             </li>
@@ -145,7 +145,7 @@ if (!isset($_SESSION['level'])) {
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Isi Buku:</h6>
-                        <a class="collapse-item" href="tampil_b.php">Lihat Buku</a>
+                        <a class="collapse-item" href="../tampil_b.php">Lihat Buku</a>
                     </div>
                 </div>
             </li>
@@ -226,21 +226,21 @@ if (!isset($_SESSION['level'])) {
                                 }
                                 ?>
                                 <?php 
-                                    // periksa apakah foto pengguna kosong
-                                    if(empty($row['foto'])) {
-                                    // gunakan foto avatar default jika kosong
-                                    echo '<img src="img/user-img/avatar-default.svg" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
-                                    } else {
-                                    // gunakan foto pengguna jika tidak kosong
-                                    echo '<img src="img/user-img/'.$row['foto'].'" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
-                                    }
-                                ?>
+        // periksa apakah foto pengguna kosong
+        if(empty($row['foto'])) {
+          // gunakan foto avatar default jika kosong
+          echo '<img src="../img/user-img/avatar-default.svg" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+        } else {
+          // gunakan foto pengguna jika tidak kosong
+          echo '<img src="../img/user-img/'.$row['foto'].'" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+        }
+      ?>
                                
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profil.php">
+                                <a class="dropdown-item" href="../profil.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>

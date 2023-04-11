@@ -1,11 +1,11 @@
 <?php 
-require 'php/config.php';
+require '../php/config.php';
 
 $register=new Tambah();
 if(isset($_POST["submit"])){
 	$result = $register->addCategory($_POST["id_p"],$_POST["nama"]);
 	if($result==1){
-		header("Refresh: 1; url=tampil_k.php");
+		header("Refresh: 1; url=../tampil_k.php");
 		echo "<script>alert('Register Sukses , Silahkan Login Ulang');</script>";
 	}
 	elseif($result==10){
@@ -15,7 +15,7 @@ if(isset($_POST["submit"])){
 	echo "<script>alert('Password does not match');</script>";
 	}
 }
-include('template/header.php'); 
+include('../template/header-crud.php'); 
 ?>
 
 <div class="container-fluid d-flex justify-content-center align-items-center">
@@ -50,4 +50,4 @@ include('template/header.php');
             </div>
                 </div>
 
-                <?php include('template/footer.php'); ?>
+                <?php include('../template/footer-crud.php'); ?>

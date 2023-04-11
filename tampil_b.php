@@ -97,12 +97,13 @@ $total_halaman = ceil($total_data / $per_halaman);
                         </form>
                     </div>
                     <div class="d-flex col justify-content-end"><a href="crud/tambah_b.php"
-                            class="btn btn-primary mr-2">
+                    class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
                             <i class="fas fa-plus-circle"></i> Tambah Buku
                         </a>
                         <a href="laporan_buku.php?cari=<?php echo isset($_GET['cari']) ? $_GET['cari'] : ''; ?>"
-                            class="btn btn-secondary">
-                            <i class="fas fa-info-circle"></i> Laporan Buku
+                            
+                           class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i
+                                class="fas fa-download fa-sm text-primary-100"></i> Generate Report
                         </a>
 
                     </div>
@@ -201,7 +202,7 @@ $total_halaman = ceil($total_data / $per_halaman);
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <img src="img/img-buku/<?php echo $data['foto']; ?>"
+                                                        <img src="img/img-buku/upload/<?php echo $data['foto']; ?>"
                                                             alt="<?php echo $data['judul']; ?>" class="img-fluid">
                                                     </div>
                                                     <div class="col-md-8">

@@ -38,7 +38,7 @@ if (isset($_POST["submit"])) {
         exit;
       }
   
-      $target_dir = "../imgb/";
+      $target_dir = "../img/img-buku/upload/";
       $target_file = $target_dir . basename($_FILES["foto"]["name"]);
       $i = 0;
       while (file_exists($target_file)) {
@@ -62,7 +62,7 @@ if (isset($_POST["submit"])) {
     }
   }
 
-include('../template/header.php'); 
+include('../template/header-crud.php'); 
 ?>
 
 
@@ -111,7 +111,7 @@ include('../template/header.php');
                                 $result = $crudKategori->tampilKategori();
                                 while($row = mysqli_fetch_assoc($result)) {
                                     // tambahkan kondisi selected jika nilai id kategori sama dengan id kategori dari buku yang sedang diedit
-                                    $selected = ($obj->kategori_id == $row['id']) ? 'selected' : '';
+                                    $selected = ($data['kategori_id'] == $row['id']) ? 'selected' : '';
                                     echo "<option value='" . $row['id'] . "' $selected>" . $row['nama_kategori'] . "</option>";
                                 }
                                 ?>
@@ -137,4 +137,4 @@ include('../template/header.php');
             </div>
         </div>
 
-                <?php include('../template/footer.php'); ?>
+                <?php include('../template/footer-crud.php'); ?>
