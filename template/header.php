@@ -71,7 +71,7 @@ if (!isset($_SESSION['level'])) {
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-folder"></i>
+                        <i class="fas fa-fw fa-cog"></i>
                         <span>Kategori</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -123,7 +123,7 @@ if (!isset($_SESSION['level'])) {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-folder"></i>
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>Kategori</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -226,15 +226,15 @@ if (!isset($_SESSION['level'])) {
                                 }
                                 ?>
                                 <?php 
-                                    // periksa apakah foto pengguna kosong
-                                    if(empty($row['foto'])) {
-                                    // gunakan foto avatar default jika kosong
-                                    echo '<img src="img/user-img/avatar-default.svg" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
-                                    } else {
-                                    // gunakan foto pengguna jika tidak kosong
-                                    echo '<img src="img/user-img/'.$row['foto'].'" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
-                                    }
-                                ?>
+        // periksa apakah foto pengguna kosong
+        if(empty($row['foto'])) {
+          // gunakan foto avatar default jika kosong
+          echo '<img src="img/user-img/avatar-default.svg" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+        } else {
+          // gunakan foto pengguna jika tidak kosong
+          echo '<img src="img/user-img/'.$row['foto'].'" width="200px" height="200px" class="img-profile rounded-circle" alt="User-Profile-Image">';
+        }
+      ?>
                                
                             </a>
                             <!-- Dropdown - User Information -->

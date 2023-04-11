@@ -37,7 +37,7 @@ if (isset($_POST["submit"])) {
       exit;
     }
 
-    $target_dir = "img/user-img";
+    $target_dir = "img/user-img/";
     $target_file = $target_dir . basename($_FILES["foto"]["name"]);
     $i = 0;
     while (file_exists($target_file)) {
