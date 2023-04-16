@@ -1,0 +1,13 @@
+public function updateTanggapan($data, $tanggapan, $id_petugas){
+        try{
+            $query ="update pengaduan set status='proses' WHERE id_pengaduan='$data'";
+            mysqli_query($this->conn, $query);
+            $query2 ="INSERT INTO tanggapan (id_pengaduan, tgl_tanggapan, tanggapan, id_petugas) values ('$data',now(),'$tanggapan','1')";
+            mysqli_query($this->conn, $query2);
+            $this->conn->commit();
+            return 1;    
+        } catch (\Exception $e) {
+            echo $e;
+            $this->conn->rollback();
+        }
+    }
